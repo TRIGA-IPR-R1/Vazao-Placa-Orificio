@@ -21,7 +21,8 @@ import matplotlib.pyplot as plt
 ## Dados extraídos do certificado de calibração
 
 corrente_instrumento = [
-    4.000,
+    #4.000,
+    3.896, #Incongruência: O certificado de calibração diz que quando a diferença de pressão é nula, a leitura de corrente é 4mA, mas experimentalmente foi medido 3,896 mA. Atualmente não disponho de ferramentas para investigar com precisão toda faixa de valores.
     5.597,
     7.195,
     8.796,
@@ -49,6 +50,7 @@ pressao_instrumento = [
 ]
 
 
+# De acordo com o certificado de calibração, estes são os valores esperados (padrões):
 corrente_padrão = [
     4,
     5.6,
@@ -99,17 +101,17 @@ a,b = calcular_regressao_linear(corrente_instrumento, pressao_instrumento)
 print(a,b)
 
 pressao_calculada = []
-for corrente in corrente_padrão:
+for corrente in corrente_instrumento:
     pressao_calculada.append(calc_pressao(corrente,a,b))
 
 
 
 # Plotando os gráficos
 plt.figure(figsize=(12, 6))
-plt.plot(corrente_instrumento, pressao_instrumento,       linewidth=6, color="green", label="Instumento")
-plt.plot(corrente_padrão, pressao_calculada, linewidth=3, color="red",   label="Calculada")
+plt.plot(corrente_instrumento, pressao_instrumento,  linewidth=6, color="green", marker='s', markerfacecolor='lightgreen', label="Instumento")
+plt.plot(corrente_instrumento, pressao_calculada,    linewidth=3, color="red",   marker='s', markerfacecolor='lightcoral', label="Calculada")
 plt.xlabel('Corrente (mA)')
-plt.ylabel('Diferença de pressão (mbar)')
+plt.ylabel('Diferença de pressão (mBar)')
 plt.legend()
 plt.title('Corrente em função da diferença de pressão')
 plt.grid(True)

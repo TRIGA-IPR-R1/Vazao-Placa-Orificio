@@ -17,9 +17,12 @@ print("")
 
 import numpy as np
 import matplotlib.pyplot as plt
-
-def calc_vazao_aproximado(bits,a=16/8192,b=4, c=18.753325819420336, d=-74.95600744500499, e = 2.417):
-    return e * np.sqrt((bits*a+b)*c+d)
+def calc_vazao_aproximado(bits,a=20/8191,b=0, c=18.69762797471173, d=-74.1111240972653, e = 2.417):
+    res = e * np.sqrt((bits*a+b)*c+d)
+    if res > 0:
+        return res
+    else:
+        return 0
 
 bits_entrada = []
 pressao_calculada = []
@@ -34,9 +37,9 @@ for bit in np.arange(0, 8191, 1):
     
 # Plotando os gráficos
 plt.figure(figsize=(12, 6))
-plt.plot(bits_entrada, pressao_calculada, linewidth=3, color="red",   label="Calculada")
-plt.plot(bits_entrada, delta_1b, linewidth=3, color="red",   label="delta")
-plt.xlabel('Corrente (mA)')
+plt.plot(bits_entrada, pressao_calculada, linewidth=3, color="red", marker='s', markerfacecolor='lightcoral', markersize=4,  label="Calculada")
+#plt.plot(bits_entrada, delta_1b, linewidth=3, color="green",   label="delta")
+plt.xlabel('Leitura PLC (bits)')
 plt.ylabel('Vazão (m³/h)')
 plt.legend()
 plt.title('Vazão em função da corrente')

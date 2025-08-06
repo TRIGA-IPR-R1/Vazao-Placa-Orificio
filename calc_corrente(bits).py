@@ -20,11 +20,11 @@ import matplotlib.pyplot as plt
 
 '''
 De acordo com o a configuração do PLC para essa porta:
-4mA  = bit 0
-20mA = bit 8192
+0mA  = bit 0
+20mA = bit 8191
 '''
 
-def calc_corrente(bits,a=16/8192,b=4):
+def calc_corrente(bits,a=20/8191,b=0):
     return bits*a+b
 
 
